@@ -57,4 +57,4 @@ if(!mysqli_query($con, $profilesql))
 }
 
 
-//header ("refresh:1; url=CreateLocation.php"); // redirect to insert Location page
+header ("refresh:1; url=CreateLocation.php"); // redirect to insert Location page
