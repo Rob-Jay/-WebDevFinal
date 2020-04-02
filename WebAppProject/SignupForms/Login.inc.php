@@ -3,47 +3,35 @@ session_start();
 include 'dbh.inc.php';
 
 // check if login button is pressed
-if (isset($_POST['login'])) {
+if (isset($_POST['email']) && isset($_POST['password'])) {
 
-    $uid = $_POST['mailuid'];
-    $password = $_POST['pwd'];
+    $uid = $_POST['email'];
+    $password = md5($_POST['password']);
 
-    //Error handlers
-    //Check if inputs are empty
-    if (empty($uid) || empty($password)) {
-        header("Location: ../index.php?error=emptyfields");
-        exit();
-
-    } else {
-        $sql = "SELECT * FROM security WHERE emailusers = '$uid' OR uidusers ='$uid'";
-        //True or false if it can find a user
-        $result = mysqli_query($conn, $sql);
-        $resultCheck = mysqli_num_rows($result);
-        if ($resultCheck < 1) {
-            header("Location: ../index.php?login=nouserfound");
+    $sql = "SELECT * FROM security WHERE email = '{$uid}' AND password_user = '{$password}'";
+    echo $sql;
+    //True or false if it can find a user
+    $result = mysqli_query($conn, $sql);
+    if($result){
+        if (mysqli_num_rows($result) > 0) {
+            $row = mysqli_fetch_assoc($result);
+            //Log in the user here
+            $_SESSION['mail'] = $row['email'];
+            $_SESSION['pwd'] = $row['password_user'];
+            $_SESSION['uid'] = $row['username'];
+            //enter homepage here
+            header("Location: ../Home/Home.php?login=success");
             exit();
         } else {
-
-            if ($row = mysqli_fetch_assoc($result)) {
-                //De-hashing the paswrd
-                $hashedPwdCheck = password_verify($password, $row['pwdUsers']);
-                if ($hashedPwdCheck == false) {
-                    header("Location: ../index.php?login=error");
-                    exit();
-
-                } else if ($hashedPwdCheck == true) {
-                    //Log in the user here
-                    $_SESSION['mail'] = $row['emailusers'];
-                    $_SESSION['pwd'] = $row['pwdUsers'];
-                    $_SESSION['uid'] = $row['uidusers'];
-                    //enter homepage here
-                    header("Location: ../Home.php?login=success");
-                    exit();
-                }
-            }
+            //header("Location: ./index.php?login=nouserfound");
+            //exit();
         }
+    } else {
+        die("Query error");
     }
-} else {
-    header("Location: ../index.php?login=error");
-    exit();
 }
+
+//header("Location: ./index.php?login=error");
+//exit();
+
+?>

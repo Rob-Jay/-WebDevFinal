@@ -1,19 +1,31 @@
-<?php 
-	include 'header.php';
- ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
 
 <body>
-	<section class="main-container">
-		<div class="main-wrapper">
-			<h2>Home</h2>
-			<?php  
+    <header id="header" class="">
+        <nav>
+            <div class="main-wrapper">
+                <img src="" alt="logo">
+              
+                <h1 class="heading">Login</h1>
 
-				if (isset($_SESSION['usernmae'])) {
-					echo "You are logged in!";
-				}
-
-			?>
-
-		</div>
-	</section>
+                    <form class="submission-form" action="Login.inc.php" method="POST">
+                        <input type="text" name="email" placeholder="Username/E-mail...">
+                        <input type="Password" name="password" placeholder="Password...">
+                        <button type="submit" name="login">Login</Button>
+                    </form>
+                <a href="signup.php">SignUp</a>';
+            </div>
+        </nav>
+    </header>
 </body>
+
+</html>
