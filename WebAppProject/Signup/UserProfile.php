@@ -6,14 +6,14 @@ session_start(); //Start session
 //echo $_SESSION["sUsername"];
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
-$UIDResults = mysqli_query($con, $userIDQuery);
+$UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
 echo $UIDResult;
 
-if(!mysqli_query($con, $userIDQuery))
+if(!mysqli_query($conn, $userIDQuery))
 {
     echo 'No Username';
 }
@@ -116,7 +116,7 @@ if(!mysqli_query($con, $userIDQuery))
 
     <div class="item active">
         <?php
-        $userimage = mysqli_query($con, "SELECT Photo FROM profile WHERE UserID = $UIDResult;");
+        $userimage = mysqli_query($conn, "SELECT Photo FROM profile WHERE UserID = $UIDResult;");
         $imgrow = mysqli_fetch_array($userimage);
 
         echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
@@ -127,11 +127,11 @@ if(!mysqli_query($con, $userIDQuery))
 
             <?php
 
-            $Firstname = mysqli_query($con, "SELECT firstname FROM user where handle = '" . $_SESSION['sUsername'] . "';");
+            $Firstname = mysqli_query($conn, "SELECT firstname FROM user where handle = '" . $_SESSION['sUsername'] . "';");
 
             if (!$Firstname)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -162,7 +162,7 @@ if(!mysqli_query($con, $userIDQuery))
             <h5><b>About me</b></h5><br>
             <?php
             $description = "SELECT description FROM profile WHERE userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
-            $results = mysqli_query($con, $description);
+            $results = mysqli_query($conn, $description);
             while ($row = mysqli_fetch_assoc($results)) {
                 print "{$row["description"]}\n";
             }
@@ -173,7 +173,7 @@ if(!mysqli_query($con, $userIDQuery))
             <h5><b>Hobbies</b></h5><br>
             <?php
             $hobbies = "SELECT Name From availablegroups a, collegegroup b where a.groupID = b.groupID AND userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
-            $results = mysqli_query($con, $hobbies);
+            $results = mysqli_query($conn, $hobbies);
             $resultcheck = mysqli_num_rows($results);
 
             if($resultcheck > 0 ){
@@ -194,7 +194,7 @@ if(!mysqli_query($con, $userIDQuery))
             <div class = "age">
                 <?php
                 $age = "SELECT age From profile where userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($con, $age);
+                $results = mysqli_query($conn, $age);
                 while ($row = mysqli_fetch_assoc($results)) {
                     print "Age: {$row["age"]}\n";
 
@@ -206,7 +206,7 @@ if(!mysqli_query($con, $userIDQuery))
             <div class = "gender">
                 <?php
                 $gender = "SELECT gender From profile where userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($con, $gender);
+                $results = mysqli_query($conn, $gender);
                 while ($row = mysqli_fetch_assoc($results)) {
                     print "Sex: {$row["gender"]}\n";
                 }
@@ -217,7 +217,7 @@ if(!mysqli_query($con, $userIDQuery))
             <div class = "Location">
                 <?php
                 $location = "SELECT name From location a, thirdlevelinstitute b where a.LocationID = b.LocationID AND userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($con, $location);
+                $results = mysqli_query($conn, $location);
                 while ($row = mysqli_fetch_assoc($results)) {
                     print "Location: {$row["name"]}\n";
                 }
