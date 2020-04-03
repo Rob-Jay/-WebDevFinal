@@ -34,7 +34,9 @@ $surname = $_POST['Surname'];
 
 // SQL Query to insert into the database
 
-$sql = "UPDATE `user` SET `Firstname`='$fname',`Surname`='$surname' WHERE UserID = '$UIDResult';";
+$sql = "INSERT INTO `user`(`UserID`, `Handle`, `Firstname`, `Surname`) VALUES ('$UIDResult','" . $_SESSION['sUsername'] . "','$fname','$surname');";
+
+    //"UPDATE `user` SET `Firstname`='$fname',`Surname`='$surname' WHERE UserID = '$UIDResult';";
 
 if(!mysqli_query($con, $sql))
 {
