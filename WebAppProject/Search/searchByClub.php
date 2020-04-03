@@ -15,7 +15,7 @@ $nameResult = $db_handle->runQuery("SELECT Name FROM availablegroups WHERE Type 
 <html>
 <head>
 
-    <?php include "websiteheader.php"; ?>
+    <?php include "/WebAppProject/Home/websiteheader.php"; ?>
     <title>Refine Search</title>
 </head>
 <body>
