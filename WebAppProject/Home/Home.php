@@ -1,5 +1,6 @@
 <?php
 	include '/WebAppProject/includes/dbh.inc.php';
+	include "/WebAppProject/Database/DBcontroller.php";
 	session_start();
 	
 ?>
