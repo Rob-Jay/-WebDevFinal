@@ -1,5 +1,6 @@
 <?php
 session_start(); //Start session
+
 include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
 
 
