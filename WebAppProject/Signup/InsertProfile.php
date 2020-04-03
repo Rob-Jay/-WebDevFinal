@@ -8,23 +8,23 @@ $password = "Wy=!)U5J6BS(hd/T";
 $dbname = "dbgroup03";
 
 // Create connection
-$con = mysqli_connect($host,$user,$password,$dbname);
+$conn = mysqli_connect($host,$user,$password,$dbname);
 
 // Check connection
-if(!$con){
+if(!$conn){
     die("Connection failed: ".mysqli_connect_error());
 }
 
 // Getting the UserID from the security table after initial creation
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
-$UIDResults = mysqli_query($con, $userIDQuery);
+$UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
 //echo $UIDResult;
 
-if(!mysqli_query($con, $userIDQuery))
+if(!mysqli_query($conn, $userIDQuery))
 {
     echo 'No Username';
 }
@@ -49,7 +49,7 @@ $society = $_POST['Society'];
 $profilesql = "INSERT INTO `profile`(`UserID`, `Age`, `Smoker`, `Drinker`, `Gender`, `Seeking`, `Description`, `Banned`, `Photo`, `location`, `club`, `society`)
 VALUES ('$UIDResult', '$age', '$smoker', '$drinker', '$gender', '$seeking', '$description', '', '$photo', '', '$club', '$society');";
 
-if(!mysqli_query($con, $profilesql))
+if(!mysqli_query($conn, $profilesql))
 {
     echo 'Not inserted' .mysqli_connect_error();
     echo $profilesql;

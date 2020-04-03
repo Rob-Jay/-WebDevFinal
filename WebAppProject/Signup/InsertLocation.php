@@ -9,23 +9,23 @@ $password = "Wy=!)U5J6BS(hd/T";
 $dbname = "dbgroup03";
 
 // Create connection
-$con = mysqli_connect($host,$user,$password,$dbname);
+$conn = mysqli_connect($host,$user,$password,$dbname);
 
 // Check connection
-if(!$con){
+if(!$conn){
     die("Connection failed: ".mysqli_connect_error());
 }
 
 // Getting the UserID from the security table after initial creation
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
-$UIDResults = mysqli_query($con, $userIDQuery);
+$UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
 //echo $UIDResult;
 
-if(!mysqli_query($con, $userIDQuery))
+if(!mysqli_query($conn, $userIDQuery))
 {
     echo 'No Username';
 }
@@ -39,7 +39,7 @@ $location = $_POST['Location'];
 // SQL Query to Convert Name from location to LocationID
 
 $locationID = "SELECT LocationID from thirdlevelinstitute where name = '$location';";
-$resultLocationID = mysqli_query($con, $locationID);
+$resultLocationID = mysqli_query($conn, $locationID);
 $LocationIDRow = mysqli_fetch_array($resultLocationID);
 
 $LocationRow = $LocationIDRow['LocationID'];
@@ -54,7 +54,7 @@ $locationsql = "INSERT INTO `location`(`LocationID`, `UserID`) VALUES ('$Locatio
 
 
 
-if(!mysqli_query($con, $locationsql))
+if(!mysqli_query($conn, $locationsql))
 {
     echo 'Not inserted';
     echo '<br>';
@@ -64,7 +64,7 @@ if(!mysqli_query($con, $locationsql))
 } else
 {
     $insertlocationProfile = "UPDATE `profile` SET `location`='$LocationRow' WHERE `UserID`='$UIDResult'";
-    $resinsertlocationProfile = mysqli_query($con, $insertlocationProfile);
+    $resinsertlocationProfile = mysqli_query($conn, $insertlocationProfile);
 
     //echo 'inserted';
 }

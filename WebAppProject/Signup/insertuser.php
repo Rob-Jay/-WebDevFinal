@@ -8,21 +8,21 @@ $password = "Wy=!)U5J6BS(hd/T";
 $dbname = "dbgroup03";
 
 // Create connection
-$con = mysqli_connect($host,$user,$password,$dbname);
+$conn = mysqli_connect($host,$user,$password,$dbname);
 
 // Check connection
-if(!$con){
+if(!$conn){
     die("Connection failed: ".mysqli_connect_error());
 }
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
-$UIDResults = mysqli_query($con, $userIDQuery);
+$UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 //echo $UIDResult;
 
-if(!mysqli_query($con, $userIDQuery))
+if(!mysqli_query($conn, $userIDQuery))
 {
     echo 'No Username';
 }
@@ -38,7 +38,7 @@ $sql = "INSERT INTO `user`(`UserID`, `Handle`, `Firstname`, `Surname`) VALUES ('
 
     //"UPDATE `user` SET `Firstname`='$fname',`Surname`='$surname' WHERE UserID = '$UIDResult';";
 
-if(!mysqli_query($con, $sql))
+if(!mysqli_query($conn, $sql))
 {
     echo 'Not inserted';
 }
