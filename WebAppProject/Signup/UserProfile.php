@@ -1,6 +1,6 @@
 <?php
 
-include "config.php"; //config file in the same folder
+include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
 
 session_start(); //Start session
 //echo $_SESSION["sUsername"];
