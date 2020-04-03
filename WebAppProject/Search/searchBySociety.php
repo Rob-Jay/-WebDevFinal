@@ -8,7 +8,7 @@
 
 
 <?php
-include 'DBController.php';
+include '/WebAppProject/database/DBController.php';
 $db_handle = new DBController();
 $nameResult = $db_handle->runQuery("SELECT Name FROM availablegroups WHERE Type = 'society'");
 ?>
