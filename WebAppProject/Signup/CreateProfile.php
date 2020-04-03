@@ -105,7 +105,7 @@ if(!mysqli_query($con, $userIDQuery))
             <b>Select image to upload:</b> <input type= "file" name="Photo" id = "uploadphoto">
 
             <br><br>
-            <b>Club:</b> (Please select all Clubs that are relevant) <br><input type="checkbox" name="Club"
+            <b>Club:</b> <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br><input type="checkbox" name="Club"
             <?php $result = mysqli_query($con,"SELECT Name FROM availablegroups WHERE type = 'club';");
             if (!$result)
             {
@@ -125,7 +125,7 @@ if(!mysqli_query($con, $userIDQuery))
             ?>
 
             <br><br>
-            <b>Society:</b>  (Please select all Societies that are relevant) <br> <input type="checkbox" name="Society"
+            <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Society"
             <?php $result = mysqli_query($con,"SELECT Name FROM availablegroups WHERE type = 'society';");
             if (!$result)
             {
@@ -142,6 +142,7 @@ if(!mysqli_query($con, $userIDQuery))
                     $name = trim( $name);
 
                     echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
+                    echo "Please note only the first value works (for the moment), checking any others will cause an error";
 
                 }
 
