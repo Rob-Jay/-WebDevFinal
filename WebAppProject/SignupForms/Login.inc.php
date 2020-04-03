@@ -8,8 +8,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $uid = $_POST['email'];
     $password = md5($_POST['password']);
 
-    $sql = "SELECT * FROM security WHERE email = '{$uid}' AND password_user = '{$password}'";
-    echo $sql;
+
+    $sql = "SELECT * FROM security WHERE email = '{$uid}' OR username = '{$uid}' AND password_user = '{$password}'";
+
     //True or false if it can find a user
     $result = mysqli_query($conn, $sql);
     if($result){
@@ -23,8 +24,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             header("Location: ../Home/Home.php?login=success");
             exit();
         } else {
-            //header("Location: ./index.php?login=nouserfound");
-            //exit();
+            header("Location: ./index.php?login=nouserfound");
+            exit();
         }
     } else {
         die("Query error");
