@@ -56,5 +56,5 @@ if(!mysqli_query($con, $profilesql))
 
 }
 
-
-header ("refresh:1; url=CreateLocation.php"); // redirect to insert Location page
+/WebAppProject/Signup/CreateLocation.php
+header ("refresh:1; url=/WebAppProject/Signup/CreateLocation.php"); // redirect to insert Location page
