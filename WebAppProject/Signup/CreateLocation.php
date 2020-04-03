@@ -1,6 +1,6 @@
 <?php
 session_start(); //Start session
-include "config.php"; //config file in the same folder
+include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
 
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
