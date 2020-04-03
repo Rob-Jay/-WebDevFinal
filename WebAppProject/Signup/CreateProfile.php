@@ -4,14 +4,14 @@ include "/WebAppProject/Database/DBcontroller.php"; //config file in the same fo
 
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
-$UIDResults = mysqli_query($con, $userIDQuery);
+$UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
 //echo $UIDResult;
 
-if(!mysqli_query($con, $userIDQuery))
+if(!mysqli_query($conn, $userIDQuery))
 {
     echo 'No Username';
 }
@@ -106,10 +106,10 @@ if(!mysqli_query($con, $userIDQuery))
 
             <br><br>
             <b>Club:</b> <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br><input type="checkbox" name="Club"
-            <?php $result = mysqli_query($con,"SELECT Name FROM availablegroups WHERE type = 'club';");
+            <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -126,10 +126,10 @@ if(!mysqli_query($con, $userIDQuery))
 
             <br><br>
             <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Society"
-            <?php $result = mysqli_query($con,"SELECT Name FROM availablegroups WHERE type = 'society';");
+            <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
