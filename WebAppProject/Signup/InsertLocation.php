@@ -69,4 +69,4 @@ if(!mysqli_query($con, $locationsql))
     //echo 'inserted';
 }
 
-header ("refresh:1; url=home.php"); // redirect to index page (should be redirected to home page where matches are)
+header ("refresh:1; url=./home.php"); // redirect to index page (should be redirected to home page where matches are)
