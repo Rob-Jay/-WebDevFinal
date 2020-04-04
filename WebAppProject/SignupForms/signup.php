@@ -10,9 +10,9 @@
 <body>
     <main>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <section class="main-container">
-		<div class = "main-wrapper" >
-			<h1>Signup</h1>
+    <section class="main-wrapper">
+		<div class = "submission-form" >
+			<h2 class ="heading">Signup</h2>
             <form class="submission-form" action="signup.inc.php" method="POST">
                 <input type="text" name="uid" placeholder="Username">
                 <input type="text" name="mail" placeholder="E-mail">
