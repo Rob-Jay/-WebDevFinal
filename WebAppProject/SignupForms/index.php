@@ -15,7 +15,7 @@
             <div class="main-wrapper">
                 <img src="" alt="logo">
               
-                <h2 class="heading">Login</h2>
+                <h2 class="heading2">Login</h2>
 
                     <form class="submission-form" action="Login.inc.php" method="POST">
                         <input type="text" name="email" placeholder="Username/E-mail...">
