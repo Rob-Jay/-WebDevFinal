@@ -10,19 +10,20 @@
 
 
 <body>
-    <header id="header" class="">
         <nav>
-            <div class="main-wrapper">
-                <img src="" alt="logo">
-              
-                <h2 class="heading2">Login</h2>
-
+            <section class="main-wrapper">
+               <!-- <img src="heart.png" /> -->
+               <h5 class = "motto">The last Dateing Site You Will Use</h5>
+                <h2 class="heading">Login</h2>
+                
                     <form class="submission-form" action="Login.inc.php" method="POST">
-                        <input type="text" name="email" placeholder="Username/E-mail...">
-                        <input type="Password" name="password" placeholder="Password...">
+                        <input type="text" name="email" placeholder="Username/E-mail">
+                        <input type="Password" name="password" placeholder="Password">
                         <button type="submit" name="login">Login</Button>
                     </form>
-                <a href="signup.php">SignUp</a>';
+                    
+                <a href="signup.php">Create your account here </a>
+                
             </div>
         </nav>
     </header>

@@ -10,12 +10,23 @@
 
 
 <body>
+    <h3>Delete User</h3>
+    <form class="adminform" action="adminHome.inc.php" method="POST">
+        <input type="text" name="deleteUser" placeholder="Enter Username to delete">
+        <button type="submit">Delete </Button>
+    </form>
 
-                <h1>Admin Page</h1>
+    <h3>Create Admin</h3>
+    <form class="adminform" action="adminHome.inc.php" method="POST">
+        <input type="text" name="newAdminUsername" placeholder="Enter Username">
+        <input type="password" name="newAdminPassword" placeholder="Enter Password">
+        <button type="submit">Create </Button>
+    </form>
 
-            </div>
-        </nav>
-    </header>
+
+
+
+
 </body>
 
 </html>
