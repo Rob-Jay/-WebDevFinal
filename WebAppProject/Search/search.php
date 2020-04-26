@@ -60,7 +60,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 
                 <br>
                 <div class="select-boxes">
-                    <form method="POST" name="search" action="index.php">
+                    <form method="POST" name="search" action="search.php">
                     <?php
                     //Include database configuration file
                     include('dbConfig.php');
