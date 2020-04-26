@@ -47,14 +47,14 @@
 				$UIDResult = $UIDrow['user_id'];
 	$sql = "SELECT	* FROM connections WHERE userID1 = ".UIDResult."OR userID2 = ".UIDResult;	
 		$result = mysqli_query($conn, $sql);
-		$resultCheck = mysqli_num_rows()
-				if($resultCheck > 0){
+		$resultCheck = mysqli_num_rows();
+				if($resultCheck>0){
 				while ($row = mysqli_fetch_assoc($result)){
 					echo $row['ConnectionDate'] . "<br>";
 					echo $row['userID1'] . "matched with: <br>";
 					echo $row['userID2'];
-					<input type="submit" id="btnAccept" value="Accept" />
-					<input type="submit" id="btnReject" value="Reject" />
+					echo '<input type="submit" id="btnAccept" value="Accept">';
+					echo '<input type="submit" id="btnReject" value="Reject" />';
 						if($Server['REQUEST_METHOD']==='POST'){
 							if(isset($_POST['btnAccept'])){
 							$sqlChange= "UPDATE connections SET ConnectionType='a' Where ConnectionType = 'p' AND ".UIDResult."= userID1 OR ".UIDResult."= userID2";
@@ -65,6 +65,9 @@
 								
 				}
 				}
+				}
+				}
+				
 	?>
 <br>
 Matches:
@@ -77,7 +80,7 @@ Matches:
 				$UIDResult = $UIDrow['user_id'];
 	$sql = "SELECT	* FROM connections WHERE userID1 = ".UIDResult."OR userID2 = ".UIDResult;	
 		$result = mysqli_query($conn, $sql);
-		$resultCheck = mysqli_num_rows()
+		$resultCheck = mysqli_num_rows();
 				if($resultCheck > 0){
 				while ($row = mysqli_fetch_assoc($result)){
 					echo $row['ConnectionDate'] . "<br>";
@@ -134,4 +137,5 @@ Matches:
     </div>
 </div>
 </body>
+</html>
 </html>
