@@ -1,7 +1,23 @@
 <?php
 session_start(); //Start session
+//include "config.php"; //config file in the same folder
 
-include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
+
+$host = "hive.csis.ul.ie";
+$user = "group03";
+$password = "Wy=!)U5J6BS(hd/T";
+$dbname = "dbgroup03";
+
+// Create connection
+$conn = mysqli_connect($host,$user,$password,$dbname);
+
+// Check connection
+if(!$conn){
+    die("Connection failed: ".mysqli_connect_error());
+}
+
+
+// End of Config
 
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";

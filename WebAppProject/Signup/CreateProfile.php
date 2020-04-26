@@ -1,7 +1,22 @@
 <?php
 session_start(); //Start session
-include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
+//include "config.php"; //config file in the same folder
 
+
+$host = "hive.csis.ul.ie";
+$user = "group03";
+$password = "Wy=!)U5J6BS(hd/T";
+$dbname = "dbgroup03";
+
+// Create connection
+$conn= mysqli_connect($host,$user,$password,$dbname);
+
+// Check connection
+if(!$con){
+    die("Connection failed: ".mysqli_connect_error());
+}
+
+// End of Config
 
 $userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
 $UIDResults = mysqli_query($conn, $userIDQuery);
@@ -102,14 +117,14 @@ if(!mysqli_query($conn, $userIDQuery))
 
             <b>Description:</b> <input type="text" name="Description">
             <br><br>
-            <b>Select image to upload:</b> <input type= "file" name="Photo" id = "uploadphoto">
+            <b>Select image to upload:</b> <input type= "file" name="image" id = "image">
 
             <br><br>
-            <b>Club:</b> <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br><input type="checkbox" name="Club"
+            <b>Club:</b> (Please select all Clubs that are relevant) <br><input type="checkbox" name="Club"
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -118,7 +133,7 @@ if(!mysqli_query($conn, $userIDQuery))
                 $name = $row['Name'];
                 //$array = array($name);
 
-                echo "<input type='checkbox' name= '$name' value='$name'> $name <br>";
+                echo "<input type='checkbox' name= '$name' value='$name' > $name <br>";
                     //foreach ();
 
             }
@@ -126,10 +141,11 @@ if(!mysqli_query($conn, $userIDQuery))
 
             <br><br>
             <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Society"
+
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -142,7 +158,33 @@ if(!mysqli_query($conn, $userIDQuery))
                     $name = trim( $name);
 
                     echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
-                    echo "Please note only the first value works (for the moment), checking any others will cause an error";
+
+
+                }
+
+            }
+            ?>
+            <br><br>
+
+            <b>Interests:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Interests"
+
+            <?php $result = mysqli_query($conn,"SELECT InterestName FROM availableinterests;");
+            if (!$result)
+            {
+                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                exit();
+            }
+
+            while($row = mysqli_fetch_array($result))
+            {
+                $name = $row['InterestName'];
+
+                foreach(explode(',',  $name) as  $name)
+                {
+                    $name = trim( $name);
+
+                    echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
+
 
                 }
 

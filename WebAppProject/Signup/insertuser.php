@@ -43,6 +43,6 @@ if(!mysqli_query($conn, $sql))
     echo 'Not inserted';
 }
 
-header ("refresh:1; url=/WebAppProject/Signup/CreateProfile.php"); // redirect to CreateProfile page (should be redirected to home page where matches are)
+header ("refresh:5; url=CreateProfile.php"); // redirect to CreateProfile page (should be redirected to home page where matches are)
 
 ?>

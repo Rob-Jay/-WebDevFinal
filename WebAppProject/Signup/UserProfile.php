@@ -1,17 +1,32 @@
 <?php
 
-include "/WebAppProject/Database/DBcontroller.php"; //config file in the same folder
+//include "config.php"; //config file in the same folder
+
+$host = "hive.csis.ul.ie";
+$user = "group03";
+$password = "Wy=!)U5J6BS(hd/T";
+$dbname = "dbgroup03";
+
+// Create connection
+$conn= mysqli_connect($host,$user,$password,$dbname);
+
+// Check connection
+if(!$conn){
+    die("Connection failed: ".mysqli_connect_error());
+}
+
+// End of Config
 
 session_start(); //Start session
 //echo $_SESSION["sUsername"];
 
-$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
+$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "'";
 $UIDResults = mysqli_query($conn, $userIDQuery);
 $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
-echo $UIDResult;
+//echo $UIDResult;
 
 if(!mysqli_query($conn, $userIDQuery))
 {
@@ -76,7 +91,7 @@ if(!mysqli_query($conn, $userIDQuery))
             color: black;
             border: 2px solid #4CAF50;
             position: absolute;
-            top: 32px;
+            top: 100px;
             right: 32px;
 
         }
@@ -106,7 +121,7 @@ if(!mysqli_query($conn, $userIDQuery))
                 <li><a href="#">Meh!!</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="#"><span class="glyphiconnglyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>
     </div>
@@ -116,29 +131,30 @@ if(!mysqli_query($conn, $userIDQuery))
 
     <div class="item active">
         <?php
-        $userimage = mysqli_query($conn, "SELECT Photo FROM profile WHERE UserID = $UIDResult;");
-        $imgrow = mysqli_fetch_array($userimage);
 
-        echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
-?>
+        $userimage = "SELECT Photo FROM profile WHERE UserID = $UIDResult;";
+        $results = mysqli_query($conn, $userimage);
+        while ($imgrow = mysqli_fetch_assoc($results)) {
+
+            echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
+
+            //echo '<img src="data:image/jpg;base64,'.base64_encode( $imgrow['Photo'] ).'" height="200" width="50" class="img-thumnail"/>';
+        }
+
+        //echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
+        ?>
 
         <div class="profileImage caption- center">
-            <h3>Hello
+            <h3> Hello
 
             <?php
 
-            $Firstname = mysqli_query($conn, "SELECT firstname FROM user where handle = '" . $_SESSION['sUsername'] . "';");
-
-            if (!$Firstname)
-            {
-                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
-                exit();
+            $Firstname = "SELECT Firstname FROM user where UserID = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
+            $results = mysqli_query($conn, $Firstname);
+            while ($row = mysqli_fetch_assoc($results)) {
+                print "{$row["Firstname"]}\n";
             }
 
-            $row = mysqli_fetch_array($Firstname);
-            $Firstname = $row['firstname'];
-
-            echo $Firstname;
             ?>
             </h3>
 
@@ -155,7 +171,9 @@ if(!mysqli_query($conn, $userIDQuery))
         <h3>Profile</h3>
     </div>
     <div>
-        <button class="button edit" >Edit</button>
+
+        <a href="edituser.php"><button class="button edit" >Edit</button> </a>
+
     </div>
     <div class="row">
         <div class="col-sm-4">
@@ -172,14 +190,17 @@ if(!mysqli_query($conn, $userIDQuery))
         <div class="col-sm-4">
             <h5><b>Hobbies</b></h5><br>
             <?php
-            $hobbies = "SELECT Name From availablegroups a, collegegroup b where a.groupID = b.groupID AND userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
+            $hobbies = "SELECT club, society, interest From profile where userid = $UIDResult;"; //Should be able to use session/login to pull the correct userID here
             $results = mysqli_query($conn, $hobbies);
+
             $resultcheck = mysqli_num_rows($results);
 
             if($resultcheck > 0 ){
                 while ($row = mysqli_fetch_assoc($results)) {
-                    echo $resultcheck;
 
+                    print "{$row["club"]}<br>";
+                    print "{$row["society"]}<br>";
+                    print "{$row["interest"]}<br>";
                 }
 
             }else echo "No hobbies";
