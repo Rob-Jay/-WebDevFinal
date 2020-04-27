@@ -12,7 +12,7 @@ $dbname = "dbgroup03";
 $conn= mysqli_connect($host,$user,$password,$dbname);
 
 // Check connection
-if(!$con){
+if(!$conn){
     die("Connection failed: ".mysqli_connect_error());
 }
 
@@ -117,14 +117,16 @@ if(!mysqli_query($conn, $userIDQuery))
 
             <b>Description:</b> <input type="text" name="Description">
             <br><br>
-            <b>Select image to upload:</b> <input type= "file" name="image" id = "image">
+            <b>Select image to upload:</b> <input type= "file" name="Photo" id = "image">
 
             <br><br>
-            <b>Club:</b> (Please select all Clubs that are relevant) <br><input type="checkbox" name="Club"
+            <b>Club:</b> (Please select all Clubs that are relevant)
+            <br>
+
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -133,19 +135,21 @@ if(!mysqli_query($conn, $userIDQuery))
                 $name = $row['Name'];
                 //$array = array($name);
 
-                echo "<input type='checkbox' name= '$name' value='$name' > $name <br>";
+                echo "<input type='checkbox' name= 'Club'[] value='$name' > $name <br>";
                     //foreach ();
 
             }
             ?>
 
             <br><br>
-            <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Society"
+            <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
+            <br>
+
 
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -153,25 +157,24 @@ if(!mysqli_query($conn, $userIDQuery))
             {
                 $name = $row['Name'];
 
-                foreach(explode(',',  $name) as  $name)
-                {
-                    $name = trim( $name);
 
-                    echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
+                    echo "<input type='checkbox' name='Society' value='$name'> $name <br> ";
 
 
-                }
+
 
             }
             ?>
             <br><br>
 
-            <b>Interests:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i> <br> <input type="checkbox" name="Interests"
+            <b>Interests:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
+            <br>
+
 
             <?php $result = mysqli_query($conn,"SELECT InterestName FROM availableinterests;");
             if (!$result)
             {
-                printf("Error: %s\n", mysqli_error($con)); // Displays the error that mysql will generate if syntax is not correct.
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
                 exit();
             }
 
@@ -179,14 +182,12 @@ if(!mysqli_query($conn, $userIDQuery))
             {
                 $name = $row['InterestName'];
 
-                foreach(explode(',',  $name) as  $name)
-                {
-                    $name = trim( $name);
-
-                    echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
 
 
-                }
+                    echo "<input type='checkbox' name='Interests' value='$name'> $name <br> ";
+
+
+
 
             }
             ?>

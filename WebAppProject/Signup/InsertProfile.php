@@ -69,7 +69,7 @@ else
         echo ("Error description: " . mysqli_error($conn));
     }
     else {
-                echo 'interest updated';
+                //echo 'interest updated';
         // Will need a way to insert each value from Clubs and Socities -- Disabled for now
 /*
         $sql   = 'INSERT INTO collegegroup (`groupID`, `UserID`, `entryNum`) VALUES ';
@@ -81,16 +81,21 @@ else
 
             $results= mysqli_multi_query($conn, $sql);
 */
-         $insertgroups = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$club'),'$UIDResult','0')" ;     // Used to insert for now
+         $insertclubs = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$club'),'$UIDResult','0')" ;     // Used to insert for now
 
-       $results= mysqli_multi_query($conn, $insertgroups);
+       $results= mysqli_multi_query($conn, $insertclubs);
 
         if(!$results){
-            echo ("Error description: " . mysqli_error($conn));
+            echo ("Club Group Error description: " . mysqli_error($conn));
         }
         else {
-            echo 'avail Group updated';
+            $insertsoc = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$society'),'$UIDResult','0')" ;     // Used to insert for now
+
+            $results= mysqli_multi_query($conn, $insertsoc);
         }
+            if(!$results){
+                echo ("Society Group Error description: " . mysqli_error($conn));
+            }
     }
 }
 
