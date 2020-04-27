@@ -80,7 +80,7 @@ if(!mysqli_query($conn, $userIDQuery))
     <div class = InsertLocation>
         <form action = "InsertLocation.php" method = "post">
 
-            userId (pulled from Session) -- $variableX
+
             <br>
             Location:   <select name = "Location">
                 <?php

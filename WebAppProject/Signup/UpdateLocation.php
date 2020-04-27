@@ -53,7 +53,7 @@ $locationsql = "UPDATE `location` SET `LocationID`='$LocationRow',`UserID`='$UID
 
 if(!mysqli_query($conn, $locationsql))
 {
-    echo 'Not inserted';
+    echo 'Location Not Updated';
     echo '<br>';
     echo $locationsql;
 

@@ -120,8 +120,10 @@ if(!mysqli_query($conn, $userIDQuery))
             <b>Select image to upload:</b> <input type= "file" name="Photo" id = "image">
 
             <br><br>
-            <b>Club:</b> (Please select all Clubs that are relevant)
+            <b>Club:</b> (Please select a Club to help find matches)
             <br>
+            <select name = "Club"
+
 
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
             if (!$result)
@@ -133,17 +135,16 @@ if(!mysqli_query($conn, $userIDQuery))
             while($row = mysqli_fetch_array($result))
             {
                 $name = $row['Name'];
-                //$array = array($name);
 
-                echo "<input type='checkbox' name= 'Club'[] value='$name' > $name <br>";
-                    //foreach ();
+                echo "<option value = '$name' >$name</option>\n";
 
             }
-            ?>
+            ?>></select>
 
             <br><br>
-            <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
+            <b>Society:</b>  (Please select a Society to help find matches)
             <br>
+            <select name = "Society"
 
 
             <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
@@ -158,17 +159,18 @@ if(!mysqli_query($conn, $userIDQuery))
                 $name = $row['Name'];
 
 
-                    echo "<input type='checkbox' name='Society' value='$name'> $name <br> ";
+                echo "<option value = '$name' >$name</option>\n";
 
 
 
 
             }
-            ?>
+            ?>></select>
             <br><br>
 
-            <b>Interests:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
-            <br>
+            <b>Interest:   </b>  (Please select an interest to help find matches)
+            <br> <select name = "Interests"
+
 
 
             <?php $result = mysqli_query($conn,"SELECT InterestName FROM availableinterests;");
@@ -182,17 +184,20 @@ if(!mysqli_query($conn, $userIDQuery))
             {
                 $name = $row['InterestName'];
 
+                ;
 
 
-                    echo "<input type='checkbox' name='Interests' value='$name'> $name <br> ";
+
+                    echo "<option value = '$name' >$name</option>\n";
 
 
 
 
             }
-            ?>
+            ?>></select>
             <br><br>
             <br>
+
             <input type = "submit" value="Next">
 
         </form>

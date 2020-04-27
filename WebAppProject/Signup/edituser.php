@@ -79,7 +79,7 @@ $pullRow = mysqli_fetch_array($pullResults);
 
 
 <div class = EditUser>
-    <form action = "editName.php" method = "post">
+    <form action = "UpdateName.php" method = "post">
         Instructions: Please input your First and last name
         <br>
         <br>

@@ -49,12 +49,12 @@ $interest = $_POST['Interests'];
 
 
 $UpdateProfile = "UPDATE `profile` SET `UserID`='$UIDResult',`handle`='" . $_SESSION['sUsername'] . "',`Age`='$age',`Smoker`='$smoker',`Drinker`='$drinker',`Gender`='$gender',`Seeking`='$seeking',
-`Description`='$description', `Banned`='',`Photo`='$photo',`location`='',`club`='$club',`society`='$society',`interest`='$interest' WHERE WHERE UserID = '$UIDResult';";
+`Description`='$description', `Banned`='',`Photo`='$photo',`location`='',`club`='$club',`society`='$society',`interest`='$interest' WHERE UserID = '$UIDResult';";
 
 
 
 if (!mysqli_query($conn, $UpdateProfile)) {
-    echo("Error description: " . mysqli_error($conn));
+    echo("Error description 1: " . mysqli_error($conn));
 } else { // will need to create a loop that will pull each value from the array for interests
 
     //
@@ -65,7 +65,7 @@ if (!mysqli_query($conn, $UpdateProfile)) {
     //echo 'inserted';
 
     if (!$resultupdateinterests) {
-        echo("Error description: " . mysqli_error($conn));
+        echo("Error description 2: " . mysqli_error($conn));
     } else {
         echo 'interest updated';
         // Will need a way to insert each value from Clubs and Socities -- Disabled for now
@@ -83,19 +83,27 @@ if (!mysqli_query($conn, $UpdateProfile)) {
 
 
 
-        $updategroups = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$club'),`UserID`='$UIDResult',`entryNum`='0' WHERE WHERE UserID = '$UIDResult';";
+        $updategroups = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$club'),`UserID`='$UIDResult',`entryNum`='0' WHERE UserID = '$UIDResult';";
 
         // Used to update for now
 
         $results = mysqli_multi_query($conn, $updategroups);
 
         if (!$results) {
-            echo("Error description: " . mysqli_error($conn));
+            echo("Error description 3: " . mysqli_error($conn));
         } else {
-            echo 'avail Group updated';
+            {
+
+                $updatesoc = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$society'),`UserID`='$UIDResult',`entryNum`='0' WHERE UserID = '$UIDResult';" ;     // Used to insert for now
+
+                $results= mysqli_multi_query($conn, $updatesoc);
+            }
+            if(!$results){
+                echo ("Society Group Error description: " . mysqli_error($conn));
+            }
         }
     }
 }
 
 
-header("refresh:5; url=CreateLocation.php"); // redirect to insert Location page
+header("refresh:5; url=editLocation.php"); // redirect to insert Location page

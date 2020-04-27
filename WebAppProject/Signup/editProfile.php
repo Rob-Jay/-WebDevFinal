@@ -124,86 +124,85 @@ $pullProfileRow = mysqli_fetch_array($pullProfileResults);
 
         <b>Description:</b> <input type="text" name="Description" value = <?php echo ($pullProfileRow['Description']) ?>>
         <br><br>
-        <b>Select image to upload:</b> <input type= "file" name="image" id = "image" >
+        <b>Select image to upload:</b> <input type= "file" name="Photo" id = "image" >
 
         <br><br>
-        <b>Club:</b> (Please select all Clubs that are relevant)
-        <br><input type="checkbox" name="Club"
-        <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
 
-        $clubname = $pullProfileRow['club'];
-        if (!$result)
-        {
-            printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
-            exit();
-        }
-
-        while($row = mysqli_fetch_array($result))
-        {
-            $name = $row['Name'];
-            //$array = array($name);
-
-            echo "<input type='checkbox' name= '$name' value='$name'  > $name <br>";
-            //foreach ();
-
-        }
-        ?>
-
-        <br><br>
-        <b>Society:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
+        <b>Club:</b> (Please select a Club to help find matches)
         <br>
-        <input type="checkbox" name="Society"
+        <select name = "Club"
 
-        <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
-        if (!$result)
-        {
-            printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
-            exit();
-        }
 
-        while($row = mysqli_fetch_array($result))
-        {
-            $name = $row['Name'];
-
-            foreach(explode(',',  $name) as  $name)
+            <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'club';");
+            if (!$result)
             {
-                $name = trim( $name);
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
+                exit();
+            }
 
-                echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
+            while($row = mysqli_fetch_array($result))
+            {
+                $name = $row['Name'];
+
+                echo "<option value = '$name' >$name</option>\n";
+
+            }
+            ?>></select>
+
+        <br><br>
+        <b>Society:</b>  (Please select a Society to help find matches)
+        <br>
+        <select name = "Society"
+
+
+            <?php $result = mysqli_query($conn,"SELECT Name FROM availablegroups WHERE type = 'society';");
+            if (!$result)
+            {
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
+                exit();
+            }
+
+            while($row = mysqli_fetch_array($result))
+            {
+                $name = $row['Name'];
+
+
+                echo "<option value = '$name' >$name</option>\n";
+
+
 
 
             }
-
-        }
-        ?>
+            ?>></select>
         <br><br>
 
-        <b>Interests:</b>  <b><i>(Please note only the first value works (for the moment), checking any others will cause an error)</b></i>
-        <br>
-        <input type="checkbox" name="Interests"
+        <b>Interest:   </b>  (Please select an interest to help find matches)
+        <br> <select name = "Interests"
 
-        <?php $result = mysqli_query($conn,"SELECT InterestName FROM availableinterests;");
-        if (!$result)
-        {
-            printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
-            exit();
-        }
 
-        while($row = mysqli_fetch_array($result))
-        {
-            $name = $row['InterestName'];
 
-            foreach(explode(',',  $name) as  $name)
+            <?php $result = mysqli_query($conn,"SELECT InterestName FROM availableinterests;");
+            if (!$result)
             {
-                $name = trim( $name);
+                printf("Error: %s\n", mysqli_error($conn)); // Displays the error that mysql will generate if syntax is not correct.
+                exit();
+            }
 
-                echo "<input type='checkbox' name='$name' value='$name'> $name <br> ";
+            while($row = mysqli_fetch_array($result))
+            {
+                $name = $row['InterestName'];
+
+                ;
+
+
+
+                echo "<option value = '$name' >$name</option>\n";
+
+
 
 
             }
-
-        }
-        ?>
+            ?>></select
         <br><br>
         <br>
         <input type = "submit" value="Next">

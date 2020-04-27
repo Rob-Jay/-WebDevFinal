@@ -44,7 +44,7 @@ $work = $pulllocationRow['LocationID'];
 $locationID = "SELECT Name from thirdlevelinstitute where LocationID = '$work';";
 $resultLocationID = mysqli_query($conn, $locationID);
 $LocationIDRow = mysqli_fetch_assoc($resultLocationID);
-$test = $LocationIDRow['Name'];
+//$test = $LocationIDRow['Name'];
 ?>
 
 <!DOCTYPE html>
@@ -90,9 +90,9 @@ $test = $LocationIDRow['Name'];
 
 
 <div class = InsertLocation>
-    <form action = "InsertLocation.php" method = "post">
+    <form action = "UpdateLocation.php" method = "post">
 
-        userId (pulled from Session) -- $variableX
+
         <br>
         Location:   <select name = "Location">
             <?php
