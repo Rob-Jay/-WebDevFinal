@@ -75,7 +75,7 @@ if(!mysqli_query($conn, $userIDQuery))
 </div>
 
 <div class = InsertProfile>
-        <form action = "insertprofile.php" method = "post">
+        <form action = "InsertProfile.php" method = "post">
 
             <b>Age:</b> <input type= "number" name="Age">
             <br><br>

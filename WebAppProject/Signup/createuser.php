@@ -77,7 +77,7 @@ if(!mysqli_query($conn, $userIDQuery))
 
 
 <div class = InsertUser>
-    <form action = "insertUser.php" method = "post">
+    <form action = "insertuser.php" method = "post">
         Instructions: Please input your First and last name
         <br>
         <br>

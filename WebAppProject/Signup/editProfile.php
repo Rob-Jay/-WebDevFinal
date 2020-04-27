@@ -82,7 +82,7 @@ $pullProfileRow = mysqli_fetch_array($pullProfileResults);
 </div>
 
 <div class = UpdateProfile>
-    <form action = "updateProfile.php" method = "post">
+    <form action = "UpdateProfile.php" method = "post">
 
         <b>Age:</b> <input type= "number" name="Age" value = <?php echo $pullProfileRow['Age'] ?>>
         <br><br>
