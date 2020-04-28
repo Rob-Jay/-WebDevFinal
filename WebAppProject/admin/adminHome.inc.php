@@ -2,11 +2,19 @@
 session_start();
 include 'dbh.inc.php';
 
+
+
 // Delete User
 if (isset($_POST['deleteUser'])) {
     $deleteUser = $_POST['deleteUser'];
-    $sql = "Delete FROM security WHERE username = '{$deleteUser}' ";
+
+    $sql = "Delete FROM security WHERE user_id = '{$deleteUser}'"; 
+       
     $result = mysqli_query($conn, $sql);
+
+    $sql= "Delete FROM profile WHERE UserID = '{$deleteUser}'";
+    $result = mysqli_query($conn, $sql);
+
     if ($result) {
         echo "User Deleted";
     } else {
@@ -24,3 +32,4 @@ if (isset($_POST['newAdminUsername']) && isset($_POST['newAdminPassword'])) {
     }
 
 }
+?>
