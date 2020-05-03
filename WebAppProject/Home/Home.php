@@ -1,6 +1,6 @@
 <?php
-	include '/WebAppProject/includes/dbh.inc.php';
-	include "/WebAppProject/Database/DBcontroller.php";
+	include "dbh.inc.php";
+	include "DBcontroller.php";
 	session_start();
 	
 ?>
@@ -36,31 +36,35 @@
 <div>  <button  onclick="window.location.href = 'searchBySociety.php';">Society</button></div>
 
 
+
 <div>
-<!--<h2>-->
+<h2>
+Notifications:
+</h2>
 	<?php
 	
 	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 	$sqlChange="";			
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
-				$UIDResult = $UIDrow['user_id'];
-	$sql = "SELECT	* FROM connections WHERE userID1 = ".UIDResult."OR userID2 = ".UIDResult;	
+				$UIDResult = $resultCheck['user_id'];
+				
+	$sql = "SELECT	* FROM connections WHERE userID1 = ".$UIDResult." OR userID2 = ".$UIDResult.";";	
 		$result = mysqli_query($conn, $sql);
-		$resultCheck = mysqli_num_rows();
+		$resultCheck = mysqli_num_rows($result);
 				if($resultCheck>0){
 				while ($row = mysqli_fetch_assoc($result)){
 					echo $row['ConnectionDate'] . "<br>";
-					echo $row['userID1'] . "matched with: <br>";
+					echo $row['userID1'] . " matched with: <br>";
 					echo $row['userID2'];
-					echo '<input type="submit" id="btnAccept" value="Accept">';
+					echo '<input type="submit" id="btnAccept" value="Accept"> ';
 					echo '<input type="submit" id="btnReject" value="Reject" />';
-						if($Server['REQUEST_METHOD']==='POST'){
+						if($_SERVER['REQUEST_METHOD']='POST'){
 							if(isset($_POST['btnAccept'])){
-							$sqlChange= "UPDATE connections SET ConnectionType='a' Where ConnectionType = 'p' AND ".UIDResult."= userID1 OR ".UIDResult."= userID2";
+							$sqlChange= "UPDATE connections SET ConnectionType='a' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
 							$result = mysqli_query($conn, $sql);
 							}else{
-							$sqlChange= "UPDATE connections SET ConnectionType='r' Where ConnectionType = 'p' AND ".UIDResult."= userID1 OR ".UIDResult."= userID2";
+							$sqlChange= "UPDATE connections SET ConnectionType='r' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
 							$result = mysqli_query($conn, $sql);
 								
 				}
@@ -70,22 +74,25 @@
 				
 	?>
 <br>
+<h2>
 Matches:
+</h2>
 	<?php
 	
 	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 				
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
-				$UIDResult = $UIDrow['user_id'];
-	$sql = "SELECT	* FROM connections WHERE userID1 = ".UIDResult."OR userID2 = ".UIDResult;	
+				$UIDResult = $resultCheck['user_id'];
+				
+	$sql = "SELECT	* FROM connections WHERE userID1 = ".$UIDResult." OR userID2 = ".$UIDResult.";";	
 		$result = mysqli_query($conn, $sql);
-		$resultCheck = mysqli_num_rows();
+		$resultCheck = mysqli_num_rows($result);
 				if($resultCheck > 0){
 				while ($row = mysqli_fetch_assoc($result)){
-					echo $row['ConnectionDate'] . "<br>";
-					echo $row['userID1'] . "matched with: <br>";
-					echo $row['userID2'];
+					echo "<br>".$row['ConnectionDate'] . "<br>";
+					echo $row['userID1'] . " matched with: <br>";
+					echo $row['userID2']."<br>";
 				}
 				}
 	?>
@@ -95,18 +102,18 @@ Matches:
 <h3>Current User</h3>
 <div style="float: bottom">
     <div style="float: right:50%">
-    AGE:
+    -AGE:
     <?php
 	
 		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['uid'] . "';";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
-		$userIDQuery="SELECT Age FROM profile WHERE UserID = ".UIDResult.";";
+		$userIDQuery="SELECT Age FROM profile WHERE UserID = ".$UIDResult.";";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['Age'];
-		echo UIDResult;
+		echo $UIDResult;
     ?>
     -SEX:
     <?php
@@ -115,11 +122,11 @@ Matches:
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
-		$userIDQuery="SELECT Gender FROM profile WHERE UserID = ".UIDResult.";";
+		$userIDQuery="SELECT Gender FROM profile WHERE UserID = ".$UIDResult.";";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['Gender'];
-		echo UIDResult;
+		echo $UIDResult;
     ?>
     -LOCATION:
     <?php
@@ -128,11 +135,11 @@ Matches:
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
-		$userIDQuery="SELECT location FROM profile WHERE UserID = ".UIDResult.";";
+		$userIDQuery="SELECT location FROM profile WHERE UserID = ".$UIDResult.";";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['location'];
-		echo UIDResult;
+		echo $UIDResult;
     ?>
     </div>
 </div>
