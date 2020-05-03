@@ -40,7 +40,7 @@
 <!--<h2>-->
 	<?php
 	
-	$sql = "SELECT user_id FROM secuirity WHERE username = '".$_SESSION['sUsername']."';";
+	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 	$sqlChange="";			
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
@@ -73,7 +73,7 @@
 Matches:
 	<?php
 	
-	$sql = "SELECT user_id FROM secuirity WHERE username = '".$_SESSION['sUsername']."';";
+	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 				
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
@@ -98,7 +98,7 @@ Matches:
     AGE:
     <?php
 	
-		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
+		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['uid'] . "';";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
@@ -111,7 +111,7 @@ Matches:
     -SEX:
     <?php
 	
-    		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
+    		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['uid'] . "';";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
@@ -124,7 +124,7 @@ Matches:
     -LOCATION:
     <?php
 	
-		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['sUsername'] . "';";
+		$userIDQuery = "SELECT user_id FROM security WHERE username = '" . $_SESSION['uid'] . "';";
 		$UIDResults = mysqli_query($conn, $userIDQuery);
 		$UIDrow = mysqli_fetch_array($UIDResults);
 		$UIDResult = $UIDrow['user_id'];
