@@ -35,27 +35,12 @@ include "dbh.inc.php"
     <h2>all users</h2>
 
     <div class ="user-container">
-
-
-
-<?php
-include "allUsers.php"
-?>
-
-
-
-
-
-
-
-
-
-  </div>
-</div>
-
-</div>
-
-</div>
+        <?php
+        include "allUsers.php"
+        ?>
+    </div>
 
 </body>
-</html>
+
+
+            

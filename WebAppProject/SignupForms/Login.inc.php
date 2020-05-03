@@ -7,6 +7,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     $uid = $_POST['email'];
     $password = md5($_POST['password']);
+
+    //login as admin
     $sql = "SELECT * FROM admin WHERE adminusername = '{$uid}' AND adminpassword = '{$password}'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
@@ -22,30 +24,30 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         } 
 
-    $sql = "SELECT * FROM security WHERE email = '{$uid}' OR username = '{$uid}' AND password_user = '{$password}'";
 
-    //True or false if it can find a user
+       //Login as a regular user  
+    $sql = "SELECT * FROM security WHERE email = '{$uid}' OR username = '{$uid}' AND password_user = '{$password}'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            //Log in the user here
-            $_SESSION['mail'] = $row['email'];
-            $_SESSION['pwd'] = $row['password_user'];
-            $_SESSION['uid'] = $row['username'];
+            //Log in the user here 
+            //Andrew this is where the session variables are 
+            $_SESSION['mail'] = $row['email'];          //email
+            $_SESSION['pwd'] = $row['password_user'];   //password
+            $_SESSION['uid'] = $row['username'];        //username
             //enter homepage here
             header("Location: ../Home/Home.php?login=success");
             exit();
         }
-
+        //Insert toast messages
       else {
-            die("Query error");
+        header("Location: ./index.php?error=UserDoesNotExsist");
+        exit();
+            
+
         }
     }
 }
 }
 
-
-
-//header("Location: ./index.php?login=error");
-//exit();
