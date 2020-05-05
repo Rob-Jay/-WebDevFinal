@@ -6,24 +6,24 @@ include 'dbh.inc.php';
 if (isset($_POST['email']) && isset($_POST['password']))
  {
 
+    $uid = $_POST['email'];
 
     $sql = "SELECT bannedEmail, bannedUsername FROM bannedUsers WHERE bannedEmail  = '{$uid}' or bannedUsername = '{$uid}'";
     $result = mysqli_query($conn, $sql);
     if ($result) {
-        
-           
+        if (mysqli_num_rows($result) > 0) {
+
             //enter admin homepage here
             header("Location: ./index.php?error=UserBanned");
             exit();
-
-        
     }
+}
 
 
 
 
 
-    $uid = $_POST['email'];
+
     $password = md5($_POST['password']);
     //login as admin
     $sql = "SELECT * FROM admin WHERE adminusername = '{$uid}' AND adminpassword = '{$password}'";

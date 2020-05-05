@@ -1,5 +1,4 @@
 <?php
-	
 	include "dbh.inc.php";
 	include "DBcontroller.php";
 	session_start();
@@ -7,9 +6,8 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-<hr>
 
+<hr>
 <link rel="stylesheet"  href="mysyle.css">
 <div id = "boxes">
     <div id = "leftbox">
@@ -25,26 +23,9 @@
 <button class="btn btn2" onclick="window.location.href = 'ProfilePage.html' ;">Profile Page</button>
 </div>
     </div>
-	
+
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-	function OnAccept($){
-		$.ajax({url:"Accept.php",success:function(result)
-			{
-			alert($result);	
-			}
-		})
-	}
-	function OnReject(){
-		$.ajax({url:"Reject.php",success:function(result)
-			{
-				alert(result);
-			}
-		})
-	}
-	</script>
 </head>
 <hr>
 
@@ -61,29 +42,36 @@
 Notifications:
 </h2>
 	<?php
-	$OtherUid = array();
-	$arrayCounter = 0;
+	
 	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 	$sqlChange="";			
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
 				$UIDResult = $resultCheck['user_id'];
 				
-	$sql = "SELECT	* FROM connections WHERE userID1 = ".$UIDResult." AND ConnectionType = 'p';";	
+	$sql = "SELECT	* FROM connections WHERE userID1 = ".$UIDResult." OR userID2 = ".$UIDResult.";";	
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 				if($resultCheck>0){
-					$Counter=0;
 				while ($row = mysqli_fetch_assoc($result)){
-					echo "<br>".$row['ConnectionDate'] . "<br>";
-					echo $row['userID1'] . "<br> matched with: <br>";
-					echo $row['userID2']."<br>";
-					$OtherUid[$arrayCounter] = $row['userID2'];
-					$arrayCounter = $arrayCounter +1;
-					echo '<button onclick="OnAccept()">Accept</button> ';
-					echo '<button onclick="OnReject()">Reject</button>';
-					$Counter= $Counter + 1;
-				}				
+
+					echo $row['ConnectionDate'] . "<br>";
+					echo $row['userID1'] . " matched with: <br>";
+					echo $row['userID2'];
+					echo '<input type="submit" id="btnAccept" value="Accept"> ';
+					echo '<input type="submit" id="btnReject" value="Reject" />';
+				}
+				
+
+						if($_SERVER['REQUEST_METHOD']='POST'){
+							if(isset($_POST['btnAccept'])){
+							$sqlChange= "UPDATE connections SET ConnectionType='a' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
+							$result = mysqli_query($conn, $sql);
+							}else{
+							$sqlChange= "UPDATE connections SET ConnectionType='r' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
+							$result = mysqli_query($conn, $sql);
+								
+				}
 				}
 				
 				
@@ -96,13 +84,13 @@ Matches:
 </h2>
 	<?php
 	
-	$sql = "SELECT user_id FROM security WHERE  username = '".$_SESSION['uid']."';";
+	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 				
 				$result = mysqli_query($conn,$sql);
 				$resultCheck = mysqli_fetch_array($result);
 				$UIDResult = $resultCheck['user_id'];
 				
-	$sql = "SELECT	* FROM connections WHERE ConnectionType ='a' AND userID1 = ".$UIDResult." OR userID2 = ".$UIDResult.";";	
+	$sql = "SELECT	* FROM connections WHERE userID1 = ".$UIDResult." OR userID2 = ".$UIDResult.";";	
 		$result = mysqli_query($conn, $sql);
 		$resultCheck = mysqli_num_rows($result);
 				if($resultCheck > 0){
@@ -112,6 +100,8 @@ Matches:
 					echo $row['userID2']."<br>";
 				}
 				}
+			}
+		
 	?>
 
 </h2>
@@ -163,3 +153,4 @@ Matches:
 </body>
 </html>
 </html>
+
