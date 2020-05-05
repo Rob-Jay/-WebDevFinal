@@ -6,7 +6,7 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head>
+
 <hr>
 <link rel="stylesheet"  href="mysyle.css">
 <div id = "boxes">
@@ -26,23 +26,6 @@
 
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-	function OnAccept(){
-		$.ajax({url:"Accept.php",success:function(result)
-			{
-				alert(result);
-			}
-		})
-	}
-	function OnReject(){
-		$.ajax({url:"Reject.php",success:function(result)
-			{
-				alert(result);
-			}
-		})
-	}
-	</script>
 </head>
 <hr>
 
@@ -59,8 +42,7 @@
 Notifications:
 </h2>
 	<?php
-	$OtherUid = array();
-	$arrayCounter = 0;
+	
 	$sql = "SELECT user_id FROM security WHERE username = '".$_SESSION['uid']."';";
 	$sqlChange="";			
 				$result = mysqli_query($conn,$sql);
@@ -72,14 +54,24 @@ Notifications:
 		$resultCheck = mysqli_num_rows($result);
 				if($resultCheck>0){
 				while ($row = mysqli_fetch_assoc($result)){
-					echo "<br>".$row['ConnectionDate'] . "<br>";
-					echo $row['userID1'] . "<br> matched with: <br>";
-					echo $row['userID2']."<br>";
-					$OtherUid[$arrayCounter] = $row['userID2'];
-					$arrayCounter = $arrayCounter +1;
-					echo '<button onclick="OnAccept()">Accept</button> ';
-					echo '<button onclick="OnReject()">Reject</button>';
-				}				
+
+					echo $row['ConnectionDate'] . "<br>";
+					echo $row['userID1'] . " matched with: <br>";
+					echo $row['userID2'];
+					echo '<input type="submit" id="btnAccept" value="Accept"> ';
+					echo '<input type="submit" id="btnReject" value="Reject" />';
+				}
+				
+
+						if($_SERVER['REQUEST_METHOD']='POST'){
+							if(isset($_POST['btnAccept'])){
+							$sqlChange= "UPDATE connections SET ConnectionType='a' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
+							$result = mysqli_query($conn, $sql);
+							}else{
+							$sqlChange= "UPDATE connections SET ConnectionType='r' Where ConnectionType = 'p' AND ".$UIDResult."= userID1 OR ".$UIDResult."= userID2";
+							$result = mysqli_query($conn, $sql);
+								
+				}
 				}
 				
 				

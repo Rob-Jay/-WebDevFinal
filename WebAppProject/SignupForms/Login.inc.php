@@ -3,11 +3,28 @@ session_start();
 include 'dbh.inc.php';
 
 // check if login button is pressed
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['email']) && isset($_POST['password']))
+ {
+
+
+    $sql = "SELECT bannedEmail, bannedUsername FROM bannedUsers WHERE bannedEmail  = '{$uid}' or bannedUsername = '{$uid}'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+        
+           
+            //enter admin homepage here
+            header("Location: ./index.php?error=UserBanned");
+            exit();
+
+        
+    }
+
+
+
+
 
     $uid = $_POST['email'];
     $password = md5($_POST['password']);
-
     //login as admin
     $sql = "SELECT * FROM admin WHERE adminusername = '{$uid}' AND adminpassword = '{$password}'";
     $result = mysqli_query($conn, $sql);
@@ -23,6 +40,15 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             exit();
 
         } 
+    }
+
+
+
+    
+
+
+
+
 
 
        //Login as a regular user  
@@ -43,11 +69,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         //Insert toast messages
       else {
         header("Location: ./index.php?error=UserDoesNotExsist");
-        exit();
-            
+        exit();   
 
         }
     }
 }
-}
+
+
 

@@ -35,7 +35,7 @@
 
 
 
-<!-- w3-content defines a container for fixed size centered content, 
+<!-- w3-content defines a container for fixed size centered content,
 and is wrapped around the whole page content, except for the footer in this example -->
 <div class="w3-content" style="max-width:1600px">
 
@@ -62,26 +62,26 @@ and is wrapped around the whole page content, except for the footer in this exam
                 <div class="select-boxes">
                     <form method="POST" name="search" action="search.php">
                     <?php
-                    //Include database configuration file
-                    include('dbConfig.php');
+//Include database configuration file
+include 'dbConfig.php';
 
-                    //selecting college
-                    $query = $db->query("SELECT Name FROM thirdlevelinstitute");
+//selecting college
+$query = $db->query("SELECT Name FROM thirdlevelinstitute");
 
-                    //Count total number of rows
-                    $rowCount = $query->num_rows;
-                    ?>
+//Count total number of rows
+$rowCount = $query->num_rows;
+?>
                     <select name="college" id="college" >
                         <option value="">Select College</option>
                         <?php
-                        if($rowCount > 0){
-                            while($row = $query->fetch_assoc()){
-                                echo '<option value="'.$row['Name'].'">'.$row['Name'].'</option>';
-                            }
-                        }else{
-                            echo '<option value="">College not available</option>';
-                        }
-                        ?>
+if ($rowCount > 0) {
+    while ($row = $query->fetch_assoc()) {
+        echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
+    }
+} else {
+    echo '<option value="">College not available</option>';
+}
+?>
                     </select>
 <!--                        <input type="submit" name="submit1" value="Select College" />-->
 <!--                        --><?php //if(isset($_POST['submit1'])){
@@ -90,50 +90,51 @@ and is wrapped around the whole page content, except for the footer in this exam
 
 
 <!--                    <form method="POST" name="search" action="index.php">-->
-                  <?php  $query = $db->query("SELECT Name FROM availablegroups WHERE Type = 'club'");
+                  <?php $query = $db->query("SELECT Name FROM availablegroups WHERE Type = 'club'");
 
-                    //Count total number of rows
-                    $rowCount = $query->num_rows;?>
+//Count total number of rows
+$rowCount = $query->num_rows;?>
                     <select name="club" id="club" >
                         <option value="">Select Club</option>
                         <?php
-                        if($rowCount > 0){
-                            while($row = $query->fetch_assoc()){
-                                echo '<option value="'.$row['Name'].'">'.$row['Name'].'</option>';
-                            }
-                        }else{
-                            echo '<option value="">Club not available</option>';
-                        }
-                        ?>
+if ($rowCount > 0) {
+    while ($row = $query->fetch_assoc()) {
+        echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
+    }
+} else {
+    echo '<option value="">Club not available</option>';
+}
+?>
                     </select>
 <!--                        <input type="submit" name="submit" value="Select Club" />-->
 <!--                        --><?php //if(isset($_POST['submit'])){
 //                            $selected_Club = $_POST['club'];} ?>
 <!--                    </form>-->
 <!--                    <form method="POST" name="search" action="index.php">-->
-                    <?php $selected_Society = "";  $query = $db->query("SELECT Name FROM availablegroups WHERE Type = 'society'");
+                    <?php $selected_Society = "";
+$query = $db->query("SELECT Name FROM availablegroups WHERE Type = 'society'");
 
-                    //Count total number of rows
-                    $rowCount = $query->num_rows;?>
+//Count total number of rows
+$rowCount = $query->num_rows;?>
                     <select name="society" id="society" ?> " >
                         <option value="">Select Society</option>
                         <?php
-                        if($rowCount > 0){
-                            while($row = $query->fetch_assoc()){
-                                echo '<option value="'.$row['Name'].'">'.$row['Name'].'</option>';
+if ($rowCount > 0) {
+    while ($row = $query->fetch_assoc()) {
+        echo '<option value="' . $row['Name'] . '">' . $row['Name'] . '</option>';
 
-                            }
-                        }else{
-                            echo '<option value="">Society not available</option>';
-                        }
+    }
+} else {
+    echo '<option value="">Society not available</option>';
+}
 
-                        ?>
+?>
 
                     </select>
                           <input type="submit" name="submit" value="Find me someone!" />
-                    <?php if(isset($_POST['submit'])){
-                        $selected_Society = $_POST['society'];
-                    } ?>
+                    <?php if (isset($_POST['submit'])) {
+    $selected_Society = $_POST['society'];
+}?>
 
 
                 </div>
@@ -144,53 +145,50 @@ and is wrapped around the whole page content, except for the footer in this exam
 
             <?php
 
-            ;
-            $sql = "SELECT Photo, UserID FROM profile WHERE society = '$selected_Society'";
-            $conn = new mysqli('hive.csis.ul.ie', 'group03', 'Wy=!)U5J6BS(hd/T', 'dbgroup03');
-            $output = '';
+;
+$sql = "SELECT Photo, UserID FROM profile WHERE society = '$selected_Society'";
+$conn = new mysqli('hive.csis.ul.ie', 'group03', 'Wy=!)U5J6BS(hd/T', 'dbgroup03');
+$output = '';
 
-            if((isset($_POST['submit'])) Or (isset($_POST['submit1'])) Or (isset($_POST['submit2']))) {
+if ((isset($_POST['submit'])) or (isset($_POST['submit1'])) or (isset($_POST['submit2']))) {
 //                $search = $_POST['search'];
-//echo $_POST["society"];
-//               echo $_POST["club"];
-//                echo $_POST["college"];
+    //echo $_POST["society"];
+    //               echo $_POST["club"];
+    //                echo $_POST["college"];
 
-                $query = mysqli_query($conn, "SELECT Photo, handle FROM profile WHERE location = '".$_POST["college"]."' OR society = '".$_POST["society"]."' OR club = '".$_POST["club"]."'") or die ("Could not search");
-                $count = mysqli_num_rows($query);
+    $query = mysqli_query($conn, "SELECT Photo, handle FROM profile WHERE location = '" . $_POST["college"] . "' OR society = '" . $_POST["society"] . "' OR club = '" . $_POST["club"] . "'") or die("Could not search");
+    $count = mysqli_num_rows($query);
 
-                if($count == 0){
-                    $output = "There was no search results!";
+    if ($count == 0) {
+        $output = "There was no search results!";
 
-                }else{
-                    $i = 0;
-                    while ($row = mysqli_fetch_array($query)) {
+    } else {
+        $i = 0;
+        while ($row = mysqli_fetch_array($query)) {
 
-                        $Name = $row ['Photo'];
-                        $ID = $row ['handle'];
+            $Name = $row['Photo'];
+            $ID = $row['handle'];
 
-                        if(($i % 2) == 0){
-                            echo ' <br> ';
-                        }
-
-
-                        $output .='<div> '.$Name.'</div>';
-                        print ("$ID");
-                        echo '  
-                          <tr>  
-                               <td>   
-                                    <img src="data:image/jpeg;charset=utf-8;base64, '.base64_encode($row['Photo'] ).'" height="200" width="200"  />  
-                               </td>  
-                          </tr>  
-                     ';
-                        $i = $i + 1;
-                    }
-
-                }
+            if (($i % 2) == 0) {
+                echo ' <br> ';
             }
 
+            $output .= '<div> ' . $Name . '</div>';
+            print("$ID");
+            echo '
+                          <tr>
+                               <td>
+                                    <img src="data:image/jpeg;charset=utf-8;base64, ' . base64_encode($row['Photo']) . '" height="200" width="200"  />
+                               </td>
+                          </tr>
+                     ';
+            $i = $i + 1;
+        }
 
+    }
+}
 
-            ?>
+?>
 
 
 
