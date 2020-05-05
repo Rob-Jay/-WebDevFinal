@@ -26,7 +26,7 @@ $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
-echo $UIDResult;
+//echo $UIDResult;
 
 if(!mysqli_query($conn, $userIDQuery))
 {
@@ -136,10 +136,12 @@ if(!mysqli_query($conn, $userIDQuery))
         $results = mysqli_query($conn, $userimage);
         while ($imgrow = mysqli_fetch_assoc($results)) {
 
-            echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"width=\'175\' height=\'200\'/>';
+            echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
 
+            //echo '<img src="data:image/jpg;base64,'.base64_encode( $imgrow['Photo'] ).'" height="200" width="50" class="img-thumnail"/>';
         }
 
+        //echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
         ?>
 
         <div class="profileImage caption- center">

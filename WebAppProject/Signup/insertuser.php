@@ -36,13 +36,13 @@ $surname = $_POST['Surname'];
 
 $sql = "INSERT INTO `user`(`UserID`, `Handle`, `Firstname`, `Surname`) VALUES ('$UIDResult','" . $_SESSION['sUsername'] . "','$fname','$surname');";
 
-
+    //"UPDATE `user` SET `Firstname`='$fname',`Surname`='$surname' WHERE UserID = '$UIDResult';";
 
 if(!mysqli_query($conn, $sql))
 {
     echo 'Not inserted';
 }
 
-header ("refresh:1; url=CreateProfile.php"); // redirect to CreateProfile page (should be redirected to home page where matches are)
+header ("refresh:5; url=CreateProfile.php"); // redirect to CreateProfile page (should be redirected to home page where matches are)
 
 ?>

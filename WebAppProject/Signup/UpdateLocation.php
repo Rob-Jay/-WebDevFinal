@@ -66,4 +66,4 @@ if(!mysqli_query($conn, $locationsql))
     //echo 'inserted';
 }
 
-header ("refresh:1; url=UserProfile.php"); // redirect to User Profile page after edits
+header ("refresh:5; url=UserProfile.php"); // redirect to User Profile page after edits

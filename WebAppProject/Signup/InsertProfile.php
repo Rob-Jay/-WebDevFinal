@@ -71,9 +71,17 @@ else
     else {
                 //echo 'interest updated';
         // Will need a way to insert each value from Clubs and Socities -- Disabled for now
+/*
+        $sql   = 'INSERT INTO collegegroup (`groupID`, `UserID`, `entryNum`) VALUES ';
+        $count = count($club); //Count the number of values in the array and use in the For loop -- might need to create two, one for clubs and one for socities
+        for ($i = 0; $i < $count; $i++)
+            {
+              $sql .= "($club[i],'$UIDResult','0')" . (($i + 1) == $count ? '' : ',');
+            }
 
-         $insertclubs = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$club'),'$UIDResult','0')" ;
-         // Used to insert
+            $results= mysqli_multi_query($conn, $sql);
+*/
+         $insertclubs = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$club'),'$UIDResult','0')" ;     // Used to insert for now
 
        $results= mysqli_multi_query($conn, $insertclubs);
 
@@ -81,8 +89,7 @@ else
             echo ("Club Group Error description: " . mysqli_error($conn));
         }
         else {
-            $insertsoc = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$society'),'$UIDResult','0')" ;
-            // Used to insert
+            $insertsoc = "INSERT INTO `collegegroup`(`groupID`, `UserID`, `entryNum`) VALUES ((SELECT groupId FROM availablegroups WHERE Name = '$society'),'$UIDResult','0')" ;     // Used to insert for now
 
             $results= mysqli_multi_query($conn, $insertsoc);
         }
@@ -93,4 +100,4 @@ else
 }
 
 
-header ("refresh:1; url=CreateLocation.php"); // redirect to insert Location page
+header ("refresh:5; url=CreateLocation.php"); // redirect to insert Location page
