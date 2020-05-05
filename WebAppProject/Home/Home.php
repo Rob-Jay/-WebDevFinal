@@ -80,8 +80,8 @@ Notifications:
 					echo $row['userID2']."<br>";
 					$OtherUid[$arrayCounter] = $row['userID2'];
 					$arrayCounter = $arrayCounter +1;
-					echo '<button onclick="OnAccept()>Accept</button> ';
-					echo '<button onclick="OnReject()>Reject</button>';
+					echo '<button onclick="OnAccept()">Accept</button> ';
+					echo '<button onclick="OnReject()">Reject</button>';
 					$Counter= $Counter + 1;
 				}				
 				}
