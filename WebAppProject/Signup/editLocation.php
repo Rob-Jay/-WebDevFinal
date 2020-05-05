@@ -26,7 +26,7 @@ $UIDrow = mysqli_fetch_array($UIDResults);
 
 $UIDResult = $UIDrow['user_id'];
 
-echo $UIDResult;
+//echo $UIDResult;
 
 if(!mysqli_query($conn, $userIDQuery))
 {

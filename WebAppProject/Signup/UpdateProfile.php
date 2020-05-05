@@ -3,7 +3,7 @@
 
 
 session_start(); //Start session
-// InsertProfile.php
+
 
 $host = "hive.csis.ul.ie";
 $user = "group03";
@@ -61,27 +61,13 @@ if (!mysqli_query($conn, $UpdateProfile)) {
 
     $updateinterests = "UPDATE `interests` SET `UserID`='$UIDResult',`InterestID`=(SELECT InterestID FROM availableinterests WHERE InterestName = '$interest') WHERE UserID = '$UIDResult';";
     $resultupdateinterests = mysqli_query($conn, $updateinterests);
-    //echo $updateinterests;
+
     //echo 'inserted';
 
     if (!$resultupdateinterests) {
         echo("Error description 2: " . mysqli_error($conn));
     } else {
-        echo 'interest updated';
-        // Will need a way to insert each value from Clubs and Socities -- Disabled for now
-        /*
-                $sql   = 'INSERT INTO collegegroup (`groupID`, `UserID`, `entryNum`) VALUES ';
-                $count = count($club); //Count the number of values in the array and use in the For loop -- might need to create two, one for clubs and one for socities
-                for ($i = 0; $i < $count; $i++)
-                    {
-                      $sql .= "($club[i],'$UIDResult','0')" . (($i + 1) == $count ? '' : ',');
-                    }
-
-                    $results= mysqli_multi_query($conn, $sql);
-        */
-
-
-
+        //echo 'interest updated';
 
         $updategroups = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$club'),`UserID`='$UIDResult',`entryNum`='0' WHERE UserID = '$UIDResult';";
 
@@ -94,7 +80,8 @@ if (!mysqli_query($conn, $UpdateProfile)) {
         } else {
             {
 
-                $updatesoc = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$society'),`UserID`='$UIDResult',`entryNum`='0' WHERE UserID = '$UIDResult';" ;     // Used to insert for now
+                $updatesoc = "UPDATE `collegegroup` SET `groupID`=(SELECT groupId FROM availablegroups WHERE Name = '$society'),`UserID`='$UIDResult',`entryNum`='0' WHERE UserID = '$UIDResult';" ;
+                // Used to insert
 
                 $results= mysqli_multi_query($conn, $updatesoc);
             }
@@ -106,4 +93,4 @@ if (!mysqli_query($conn, $UpdateProfile)) {
 }
 
 
-header("refresh:5; url=editLocation.php"); // redirect to insert Location page
+header("refresh:1; url=editLocation.php"); // redirect to insert Location page
