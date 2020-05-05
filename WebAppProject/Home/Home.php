@@ -20,28 +20,12 @@
     <div id = "rightbox">
         <br>
     <div style="float: right">
-<button class="btn btn2" onclick="window.location.href = 'ProfilePage.html' ;">Profile Page</button>
+<button class="btn btn2" onclick="window.location.href = 'Signup/UserProfile.php' ;">Profile Page</button>
 </div>
     </div>
 
 </div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-	function OnAccept(){
-		$.ajax({url:"Accept.php",success:function(result)
-			{
-			alert($result);	
-			}
-		})
-	}
-	function OnReject(){
-		$.ajax({url:"Reject.php",success:function(result)
-			{
-				alert(result);
-			}
-		})
-	}
-	</script>
+
 </head>
 <hr>
 
