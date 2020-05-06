@@ -20,7 +20,7 @@
     <div id = "rightbox">
         <br>
     <div style="float: right">
-<button class="btn btn2" onclick="window.location.href = 'Signup/UserProfile.php' ;">Profile Page</button>
+<button class="btn btn2" onclick="window.location.href = 'ProfilePage.html' ;">Profile Page</button>
 </div>
     </div>
 

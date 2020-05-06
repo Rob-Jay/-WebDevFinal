@@ -12,9 +12,9 @@ if (isset($_POST['deleteUser'])) {
 
     //Use toast messages
     if ($result) {
-        echo "User Deleted";
+        header("Location: ../admin/adminHome.php?SuccessfulDelete");
     } else {
-        echo "User not deleted";
+        header("Location: ../admin/adminHome.php?FailDelete");
     }
 }
 
@@ -28,10 +28,10 @@ if (isset($_POST['banuser'])) {
     $result = mysqli_query($conn, $sql);
     //toast message
     if ($result) {
-        echo "user banned";
+        header("Location: ../admin/adminHome.php?SuccessfulBan");
     }
     else{
-        echo "    user not banned ";
+        header("Location: ../admin/adminHome.php?FailBan");
     }
 }
 
@@ -42,9 +42,11 @@ if (isset($_POST['unbanuser'])) {
     $result = mysqli_query($conn, $sql);
     //Use toast messages
     if ($result) {
-        echo "User unbanned";
+    
+        header("Location: ../admin/adminHome.php?SuccessfulUnBan");
+
     } else {
-        echo "User still banned";
+        header("Location: ../admin/adminHome.php?FailUnBan");
     }
 }
 
@@ -62,6 +64,7 @@ if (isset($_POST['newAdminUsername']) && isset($_POST['newAdminPassword'])) {
     //toast message
     if ($result) {
         echo "Admin Created";
+        header("Location: ../admin/adminHome.php?AdminHasBeenCreated");
     }
 
 }

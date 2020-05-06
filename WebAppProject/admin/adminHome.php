@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-include "dbh.inc.php"
+include 'dbh.inc.php';
 ?>
 
 <head>
@@ -50,45 +50,43 @@ include "dbh.inc.php"
 
     <div class ="user-container">
         <?php
-        $sql = "SELECT * FROM profile";
-        $result = mysqli_query($conn, $sql);
-        $queryResults = mysqli_num_rows($result);
+session_start();
+$sql = "SELECT * FROM profile";
+$result = mysqli_query($conn, $sql);
+$queryResults = mysqli_num_rows($result);
+$i=0;
+if ($queryResults > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
 
-        if($queryResults>0) {
-            while($row = mysqli_fetch_assoc($result)){
-                echo "<div class = user-box> 
-                <h3>".$row['handle']."</h3>
-                <h4>".$row['UserID']."</h4> 
+        //On page 1
+
+
+//On page 2
+
+
+        echo "<div class = user-box>
+                <h3>" . $row['handle'] . "</h3>
+                <h4>" . $row['UserID'] . "</h4>
                 </div>";
-                echo '<img src="data:image/jpeg;base64,'.base64_encode( $row['Photo']).'"  border="4" height="200" width="200"/> ';
-                echo "<div> 
-                <p>".$row['Description']."</p>
-                <h5>".$row['Age']."</h5>
-                <h5>".$row['Gender']."</h5>
-                <h5>".$row['location']."</h5>
-                <h5>".$row['club']."</h5>
-                <h5>".$row['society']."</h5>
+        echo '<a href="adminEditProfile.php?id='.$row['UserID'].'"><img src="data:image/jpeg;base64,' . base64_encode($row['Photo']) . '"  border="4" height="200" width="200""/></a>';
+        echo "<div>
+                <p>" . $row['Description'] . "</p>
+                <h5>" . $row['Age'] . "</h5>
+                <h5>" . $row['Gender'] . "</h5>
+                <h5>" . $row['location'] . "</h5>
+                <h5>" . $row['club'] . "</h5>
+                <h5>" . $row['society'] . "</h5>
                 <hr>
                 </div>";
+               
 
-            }
-        }
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-        //include "allUsers.php"
-        ?>
+//include "allUsers.php"
+?>
     </div>
 
 </body>
 
 
-            
