@@ -1,7 +1,10 @@
 <?php
 include "dbh.inc.php";
 session_start();
-$sql = "INSERT INTO connections VALUES(4,".$_SESSION['uid'].", ".$_SESSION['OtherID'].", '2020-05-31','p' );";
+$sqlSelect = "SELECT * From connections";
+$sqlConn= mysqli_query($conn, $sql);
+$ConnID= mysqli_num_rows($sqlConn);
+$sql = "INSERT INTO connections VALUES(".$ConnID.",".$_SESSION['uid'].", ".$_SESSION['OtherID'].", CURDATE(),'p' );";
 $result = mysqli_query($conn,$sql);
 echo "success";
 ?>
