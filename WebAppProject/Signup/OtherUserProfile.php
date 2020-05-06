@@ -21,7 +21,7 @@ session_start(); //Start session
 //echo $_SESSION["sUsername"];
 
 $id = $_GET['id'];
-$_SESSION['OtherID'];
+$_SESSION['OtherID']=$id;
 
 
 
