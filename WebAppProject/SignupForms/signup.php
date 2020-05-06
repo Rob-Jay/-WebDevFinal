@@ -19,7 +19,7 @@
                 <input type="text" name="mail" placeholder="E-mail">
                 <input type="password" name="pwd" placeholder="Password">
                 <input type="password" name="pwd-repeat" placeholder="Repeat Password">
-                <li class = ><a href="index.php"><img src="home.png"/></a></li>
+                <li  ><a href="index.php"><img src="home.png"/></a></li>
                 <button type="submit">Sign up </Button>
             </form>
 </section>

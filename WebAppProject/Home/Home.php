@@ -100,6 +100,8 @@ Matches:
 					echo $row['userID2']."<br>";
 				}
 				}
+			}
+		
 	?>
 
 </h2>
@@ -151,3 +153,4 @@ Matches:
 </body>
 </html>
 </html>
+
