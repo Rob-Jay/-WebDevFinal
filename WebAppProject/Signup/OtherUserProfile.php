@@ -21,6 +21,7 @@ session_start(); //Start session
 //echo $_SESSION["sUsername"];
 
 $id = $_GET['id'];
+$_SESSION['OtherID']=$id;
 
 
 
@@ -106,6 +107,15 @@ $id = $_GET['id'];
     <!--        }-->
     <!--    </style>-->
     <link rel="stylesheet" type="text/css" href="../Search/bootstrap.css"></head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function OnPending(){
+		$.ajax({url:"Pending.php",success:function(result)
+			{
+				alert(result);
+			}
+		})
+	}
 </head>
 <body>
 <?php include "../header/header.html" ?>
@@ -140,124 +150,5 @@ $id = $_GET['id'];
         $userimage = "SELECT Photo FROM profile WHERE UserID = $id;";
         $results = mysqli_query($conn, $userimage);
         while ($imgrow = mysqli_fetch_assoc($results)) {
-
-            echo '<div style="text-align: center;"><img src="data:image/jpeg;base64,' .base64_encode( $imgrow['Photo'] ).'"style="max-width:300px;width:100%;border-radius: 50%;" /></div>';
-
-            //echo '<img src="data:image/jpg;base64,'.base64_encode( $imgrow['Photo'] ).'" height="200" width="50" class="img-thumnail"/>';
-        }
-
-        //echo '<img src="data:image/jpeg;base64,'.base64_encode( $imgrow['Photo'] ).'"/>';
-        ?>
-
-        <div class="profileImage caption- center">
-            <h3>
-
-                <?php
-
-                $Firstname = "SELECT handle FROM profile where UserID = $id;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($conn, $Firstname);
-                while ($row = mysqli_fetch_assoc($results)) {
-                    print "<div style=\"text-align: center;\">{$row["handle"]}\n</div>";
-                }
-
-                ?>
-            </h3>
-
-
-
-            <!-- Pull name from Database -->
-        </div>
-    </div>
-
-</div>
-
-<div class="container text-center">
-    <div>
-        <h3>Profile</h3>
-    </div>
-    <div>
-
-        <!--        <a href="edituser.php"><button class="button edit" >Edit</button> </a>-->
-
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <h5><b>About me</b></h5><br>
-            <?php
-            $description = "SELECT description FROM profile WHERE userid = $id;"; //Should be able to use session/login to pull the correct userID here
-            $results = mysqli_query($conn, $description);
-            while ($row = mysqli_fetch_assoc($results)) {
-                print "{$row["description"]}\n";
-            }
-            ?>
-            <!-- Php to pull $description from Database Placeholder showing available groups -->
-        </div>
-        <div class="col-sm-4">
-            <h5><b>Hobbies</b></h5><br>
-            <?php
-            $hobbies = "SELECT club, society, interest From profile where userid = $id;"; //Should be able to use session/login to pull the correct userID here
-            $results = mysqli_query($conn, $hobbies);
-
-            $resultcheck = mysqli_num_rows($results);
-
-            if($resultcheck > 0 ){
-                while ($row = mysqli_fetch_assoc($results)) {
-
-                    print "{$row["club"]}<br>";
-                    print "{$row["society"]}<br>";
-                    print "{$row["interest"]}<br>";
-                }
-
-            }else echo "No hobbies";
-
-            ?>
-            <!-- PHP to get list of clubs socities etc
-            Collegegroup table contains groupID (Pull name from AvailableGroups Subquery)
-            Interests table contains IntertestID (Pull name from availableinterests subquery)
-            -->
-        </div>
-        <div class="col-sm-4">
-            <div class = "age">
-                <?php
-                $age = "SELECT age From profile where userid = $id;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($conn, $age);
-                while ($row = mysqli_fetch_assoc($results)) {
-                    print "Age: {$row["age"]}\n";
-
-                }
-
-
-                ?>
-            </div>
-            <div class = "gender">
-                <?php
-                $gender = "SELECT gender From profile where userid = $id;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($conn, $gender);
-                while ($row = mysqli_fetch_assoc($results)) {
-                    print "Sex: {$row["gender"]}\n";
-                }
-
-                ?>
-
-            </div>
-            <div class = "Location">
-                <?php
-                $location = "SELECT location FROM profile WHERE userid = $id;"; //Should be able to use session/login to pull the correct userID here
-                $results = mysqli_query($conn, $location);
-                while ($row = mysqli_fetch_assoc($results)) {
-                    print "Location: {$row["location"]}\n";
-                }
-
-                ?>
-                <!-- Pulled from location with subquery on thirdlevelinstitute)  -->
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-</div>
-</div>
-</body>
-</html>
+echo '<button onclick="OnPending()">Connect !</button> ';
+            echo '<div style="text-align: center;"><img src="data:image/jpeg;base64,' .base64_encode( $imgrow['Photo'] ).'"style="max-width:300px;width:100%
