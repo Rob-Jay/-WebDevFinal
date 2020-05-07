@@ -57,8 +57,8 @@ if (isset($_POST['unbanuser'])) {
 
 //Create Admin
 if (isset($_POST['newAdminUsername']) && isset($_POST['newAdminPassword'])) {
-    $adminUsername = 'newAdminUsername';
-    $adminPassword = $hashedPwd = md5('newAdminPassword');
+    $adminUsername =$_POST['newAdminUsername'];
+    $adminPassword= md5($_POST['newAdminPassword']);
     $sql = "INSERT INTO admin (adminusername, adminpassword) VALUES ('{$adminUsername}', '{$adminPassword}')";
     $result = mysqli_query($conn, $sql);
     //toast message
